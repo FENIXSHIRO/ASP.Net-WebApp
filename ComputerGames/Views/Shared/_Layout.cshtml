@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<script type="text/javascript">
+
+    function LogOut() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("Logout", "Account")',
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                window.location.href = '@Url.Action("Index", "Home")';
+            }
+        })
+    }
+
+</script>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - GamesRating</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ComputerGames.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="p-2 bg-dark text-white">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="#" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+                </a>
+
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a asp-controller="Home" asp-action="Index" class="nav-link px-2 text-white">Главная</a></li>
+
+                    @if (ViewContext.HttpContext.User.Identity.IsAuthenticated && ViewContext.HttpContext.User.IsInRole("Administrator"))
+                    {
+                        <li><a asp-controller="Edit" asp-action="AddGame" class="nav-link px-2 text-white">Добавить игру</a></li>
+                    }
+                </ul>
+
+                @if(ViewContext.HttpContext.User.Identity.IsAuthenticated)
+                {
+                    <div class="btn-group">
+                        <button type="button" class="btn text-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            @ViewContext.HttpContext.User.Identity.Name
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item text-black" href="#">Профиль</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-black" href="#" onclick="LogOut()">Выйти</a></li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <div class="text-end">
+                        <a asp-controller="Account" asp-action="Login" class="btn btn-outline-light">Войти</a>
+                        <button class="btn btn-warning">Зарегистрироваться</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </header>
+
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            ЯГТУ 2022 - Тетеев Иван Михайлович (ЭИС-35)
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

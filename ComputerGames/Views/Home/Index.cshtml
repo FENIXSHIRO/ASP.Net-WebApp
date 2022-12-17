@@ -1,0 +1,151 @@
+﻿@{
+    ViewData["Title"] = "Главная";
+}
+
+<script type="text/javascript">
+
+    function hash(){
+        var pass = prompt("Введите зачение");
+
+        var data = new FormData;
+        data.append("pass", pass);
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("HashForMe", "Home")',
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                alert(data);
+            }
+        })
+    }
+    
+</script>
+
+<style>
+    .bd-placeholder-img {
+    font-size: 3.5rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    }
+
+    h1, h2, h3, h4, p, body {
+        color: white;
+    }
+
+    a {
+        color: white;
+        text-decoration: none;
+        outline: none;
+    }
+
+    a:hover {
+        color: gray;
+    }
+
+    a:visited {
+        color: white;
+    }
+
+
+</style>
+
+@if (ViewBag.games != null && ViewBag.games.Count >= 1)
+{
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+
+            @{
+                int c1 = 1, c2 = 0, c3 = 2; // Переменные для быстрой замены игр в карусели (указывается индекс игры в ViewBag)
+            }
+
+            <!-- 1й объект -->
+            <div class="carousel-item active" style="background: linear-gradient(rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.40)), url(@Url.Action("show", "image", new { id = ViewBag.games[c1].GameId })); background-size: cover; background-position: center; overflow: hidden;">
+                <div style="backdrop-filter: blur(20px); height:50vh">
+                </div>
+
+                <div class="container">
+                    <div class="carousel-caption text-start">
+                        <a href="@Url.Action("GamePage", "Home", new { gameId = ViewBag.games[c1].GameId })"><img src='@Url.Action("show", "image", new { id = ViewBag.games[c1].GameId })' class="img-fluid rounded" alt="@ViewBag.games[c1].GameName Logo" style="height: 30vh; object-fit: cover; width: 30vw; overflow: hidden;" /></a>
+                        <h1 class="mt-1"><a class="CGameName" href="@Url.Action("GamePage", "Home", new { gameId = ViewBag.games[c1].GameId })">@ViewBag.games[c1].GameName</a></h1>
+                        <p>Оценка:</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2й объект -->
+            <div class="carousel-item" style="background: linear-gradient(rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.40)), url(@Url.Action("show", "image", new { id = ViewBag.games[c2].GameId })); background-size: cover; background-position: center; overflow: hidden;">
+                <div style="backdrop-filter: blur(20px); height:50vh">
+                </div>
+
+                <div class="container">
+                    <div class="carousel-caption text-start">
+                        <a href="@Url.Action("GamePage", "Home", new { gameId = ViewBag.games[c2].GameId })"><img src='@Url.Action("show", "image", new { id = ViewBag.games[c2].GameId })' class="img-fluid rounded" alt="@ViewBag.games[c2].GameName Logo" style="height: 30vh; object-fit: cover; width: 30vw; overflow: hidden;" /></a>
+                        <h1 class="mt-1"><a class="CGameName" href="@Url.Action("GamePage", "Home", new { gameId = ViewBag.games[c2].GameId })">@ViewBag.games[c2].GameName</a></h1>
+                        <p>Оценка:</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3й объект -->
+            <div class="carousel-item" style="background: linear-gradient(rgba(0, 0, 0, 0.40), rgba(0, 0, 0, 0.40)), url(@Url.Action("show", "image", new { id = ViewBag.games[c3].GameId })); background-size: cover; background-position: center; overflow: hidden;">
+                <div style="backdrop-filter: blur(20px); height:50vh">
+                </div>
+
+                <div class="container">
+                    <div class="carousel-caption text-start">
+                        <a href="@Url.Action("GamePage", "Home", new { gameId = ViewBag.games[c3].GameId })"><img src='@Url.Action("show", "image", new { id = ViewBag.games[c3].GameId })' class="img-fluid rounded" alt="@ViewBag.games[c3].GameName Logo" style="height: 30vh; object-fit: cover; width: 30vw; overflow: hidden;" /></a>
+                        <h1 class="mt-1"><a class="CGameName" href="@Url.Action("GamePage", "Home", new { gameId = ViewBag.games[c3].GameId })">@ViewBag.games[c3].GameName</a></h1>
+                        <p>Оценка:</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <div style="background: #333;">
+        <div class="container"><h1 class="p-3">Список игр</h1></div>
+    </div>
+
+    <div class="container mt-3">
+        @foreach (var game in ViewBag.games)
+        {
+            <div class="mb-3" style="-moz-border-radius: 10px; border-radius: 10px; background: url(@Url.Action("show", "image", new { id = game.GameId })); background-size: cover; background-position: center; overflow: hidden;">
+                <div style="backdrop-filter: blur(50px); border-radius: 10px;">
+                    <div class="d-flex flex-row box-shadow" style="background: #333; padding:5px;">
+                        <a href="@Url.Action("GamePage", "Home", new { gameId = @game.GameId })" style="margin-left: 15px; outline: none;"><h1>@game.GameName</h1></a>
+                        <p class="ms-1">Оценка: @game.GameRating</p>
+                    </div>
+                    <div class="d-flex flex-row" style="padding: 15px; background-color:rgba(0,0,0,0.7);">
+                        <img src='@Url.Action("show", "image", new { id = game.GameId })' class="img-fluid rounded" alt="@game.GameName Logo" style="width: 45%; height: 100%; object-fit: cover; overflow: hidden;" />
+                        <div class="border-1 rounded" style="padding:10px; width: 55%;">
+                            <p>Дата релиза: @game.GameReleaseDate.ToString("dd/MM/yyyy") Издатель: @game.GamePublisher</p>
+                            <h4>Описание</h4>
+                            <p style="display: -webkit-box !important; -webkit-line-clamp: 8; -webkit-box-orient: vertical; white-space: normal; overflow: hidden; -webkit-mask-image: linear-gradient(180deg, #fff 60%, transparent);">@game.GameDescription</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+                            <button class="btn btnalert-warning" onclick="hash()">Hash</button>
