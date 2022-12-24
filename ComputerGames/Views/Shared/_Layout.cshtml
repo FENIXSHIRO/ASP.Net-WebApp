@@ -49,7 +49,10 @@
                             @ViewContext.HttpContext.User.Identity.Name
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item text-black" href="#">Профиль</a></li>
+                            @if (ViewContext.HttpContext.User.Identity.IsAuthenticated && ViewContext.HttpContext.User.IsInRole("Administrator"))
+                            {
+                                <li><a asp-controller="Account" asp-action="AddModer" class="dropdown-item text-black">Добавить модератора</a></li>
+                            }
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item text-black" href="#" onclick="LogOut()">Выйти</a></li>
                         </ul>
@@ -59,7 +62,7 @@
                 {
                     <div class="text-end">
                         <a asp-controller="Account" asp-action="Login" class="btn btn-outline-light">Войти</a>
-                        <button class="btn btn-warning">Зарегистрироваться</button>
+                        <a asp-controller="Account" asp-action="Register" class="btn btn-warning">Зарегистрироваться</a>
                     </div>
                 }
             </div>

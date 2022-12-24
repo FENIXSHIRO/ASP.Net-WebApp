@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Регистрация пользователя";
+}
+
+<div class="p-3 mt-3" style="width:40%; margin: auto; border: 1px solid #999; border-radius:15px">
+    <form method="post">
+        <div class="mb-3">
+            <label for="InputEmail" class="form-label">Email</label>
+            <input type="text" class="form-control" id="InputEmail" name="email">
+        </div>
+        <div class="mb-3">
+            <label for="InputLogin" class="form-label">Логин</label>
+            <input type="text" class="form-control" id="InputLogin" name="username">
+        </div>
+        <div class="mb-3">
+            <label for="InputPassword" class="form-label">Пароль</label>
+            <input type="password" class="form-control" id="InputPassword" name="password">
+        </div>
+        <button type="submit" class="btn btn-warning">Доавить модератора</button>
+    </form>
+</div>

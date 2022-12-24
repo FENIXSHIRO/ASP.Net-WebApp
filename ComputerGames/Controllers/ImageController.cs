@@ -17,5 +17,22 @@ namespace ComputerGames.Controllers
 
             return File(imageData, "image/jpg");
         }
+
+        public ActionResult GetScreenshotByNumber(int gameId, int numberOfScreenshot)
+        {
+            byte[] imageData;
+
+            using (var db = new GamesWebAppDbContext())
+            {
+                var images = (from s in db.Screenshots
+                              where s.GameId == gameId
+                              select s.ScreenshotData
+                            ).ToList();
+
+                imageData = images[numberOfScreenshot];
+            }
+
+            return File(imageData, "image/jpg");
+        }
     }
 }

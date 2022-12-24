@@ -162,6 +162,30 @@ namespace ComputerGames.Controllers
             }
         }
 
+        public void AddGameScreens(int forGameId, IFormFile infile)
+        {
+            using (var db = new GamesWebAppDbContext())
+            {
+                var file = infile;
+                if (file.Length > 0)
+                {
+                    Screenshot screenshot = new Screenshot();
+                    screenshot.GameId = forGameId;
+
+                    using (var ms = new MemoryStream())
+                    {
+                        file.CopyTo(ms);
+                        var fileBytes = ms.ToArray();
+                        screenshot.ScreenshotData = fileBytes;
+                    }
+
+                    db.Screenshots.Add(screenshot);
+
+                    db.SaveChanges();
+                }
+            }
+        }
+
         public void AddComment(int gameId, string username, string content, int rating)
         {
             using (var db = new GamesWebAppDbContext())
@@ -179,6 +203,33 @@ namespace ComputerGames.Controllers
 
                 db.Comments.Add(comment);
                 db.SaveChanges();
+
+
+                var result = db.Games.SingleOrDefault(g => g.GameId == gameId);
+                if (result != null)
+                {
+                    result.GameRating = Convert.ToDecimal(db.Comments.Where(c => c.CommentGame == gameId).Average( c => c.CommentRating));
+                    db.SaveChanges();
+                }
+            }
+
+        }
+
+        public void DeleteComment(int id)
+        {
+            using (var db = new GamesWebAppDbContext())
+            {
+                Comment comment = db.Comments.Where(c => c.CommentId == id).Single();
+                int gameId = comment.CommentGame;
+                db.Comments.Remove(comment);
+                db.SaveChanges();
+
+                var result = db.Games.SingleOrDefault(g => g.GameId == gameId);
+                if (result != null)
+                {
+                    result.GameRating = Convert.ToDecimal(db.Comments.Where(c => c.CommentGame == gameId).Average(c => c.CommentRating));
+                    db.SaveChanges();
+                }
             }
         }
 

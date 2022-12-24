@@ -129,6 +129,7 @@ namespace ComputerGames.Controllers
                             where c.CommentGame == gameId
                                 select new
                             {
+                                commentid = c.CommentId,
                                 rating = c.CommentRating,
                                 content = c.CommentContent,
                                 username = u.UserName,
@@ -136,6 +137,8 @@ namespace ComputerGames.Controllers
                             }).ToList();
 
                 ViewBag.comments = comments;
+
+                ViewBag.screenshotscount = db.Screenshots.Where(c => c.GameId == gameId).Count();
 
             }
             return View();

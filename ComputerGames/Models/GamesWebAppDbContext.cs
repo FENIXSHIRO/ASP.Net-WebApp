@@ -107,7 +107,7 @@ public partial class GamesWebAppDbContext : DbContext
             entity.Property(e => e.GamePegi).HasColumnName("game_pegi");
             entity.Property(e => e.GamePublisher).HasColumnName("game_publisher");
             entity.Property(e => e.GameRating)
-                .HasColumnType("decimal(2, 1)")
+                .HasColumnType("decimal(3, 1)")
                 .HasColumnName("game_rating");
             entity.Property(e => e.GameReleaseDate)
                 .HasColumnType("date")

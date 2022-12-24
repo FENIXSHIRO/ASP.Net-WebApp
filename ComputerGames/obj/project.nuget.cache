@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Q/uGeX8Gl3jP60BaovQp90U6YxYemerV6taAJ6TQ473cYPUUREtNVVdDx3VCe+CYS9PSg+ZU23M0SuRyxjn3nQ==",
+  "dgSpecHash": "2Ev9YwBvesusDAbnxpXGjLrHzwtekZ06tORc8Jt3k4Z+sFv5GekTCNNgTmb7HSey5SDJpAY5GY7PjHQmv3aOVA==",
   "success": true,
-  "projectFilePath": "E:\\Users\\Univer\\БД Курсач\\ComputerGames\\ComputerGames\\ComputerGames.csproj",
+  "projectFilePath": "E:\\Users\\Univer\\БД Курсач\\ComputerGames\\ASP.Net-WebApp\\ComputerGames\\ComputerGames.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Flame\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Flame\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

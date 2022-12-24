@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Users\\Univer\\БД Курсач\\ComputerGames\\ComputerGames\\ComputerGames.csproj": {}
+    "E:\\Users\\Univer\\БД Курсач\\ComputerGames\\ASP.Net-WebApp\\ComputerGames\\ComputerGames.csproj": {}
   },
   "projects": {
-    "E:\\Users\\Univer\\БД Курсач\\ComputerGames\\ComputerGames\\ComputerGames.csproj": {
+    "E:\\Users\\Univer\\БД Курсач\\ComputerGames\\ASP.Net-WebApp\\ComputerGames\\ComputerGames.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Users\\Univer\\БД Курсач\\ComputerGames\\ComputerGames\\ComputerGames.csproj",
+        "projectUniqueName": "E:\\Users\\Univer\\БД Курсач\\ComputerGames\\ASP.Net-WebApp\\ComputerGames\\ComputerGames.csproj",
         "projectName": "ComputerGames",
-        "projectPath": "E:\\Users\\Univer\\БД Курсач\\ComputerGames\\ComputerGames\\ComputerGames.csproj",
+        "projectPath": "E:\\Users\\Univer\\БД Курсач\\ComputerGames\\ASP.Net-WebApp\\ComputerGames\\ComputerGames.csproj",
         "packagesPath": "C:\\Users\\Flame\\.nuget\\packages\\",
-        "outputPath": "E:\\Users\\Univer\\БД Курсач\\ComputerGames\\ComputerGames\\obj\\",
+        "outputPath": "E:\\Users\\Univer\\БД Курсач\\ComputerGames\\ASP.Net-WebApp\\ComputerGames\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Flame\\AppData\\Roaming\\NuGet\\NuGet.Config",

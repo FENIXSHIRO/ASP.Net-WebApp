@@ -14,6 +14,7 @@
     let developers = [];
     let platforms = [];
     let locals = [];
+    let screenshots = [];
 
     function createTag(type, selectId, outputId) 
     {
@@ -138,6 +139,36 @@
         })
     }
 
+    function ShowLogoPreview(event) {
+        if(event.target.files.length > 0) {
+            var src = URL.createObjectURL(event.target.files[0]);
+            var preview = document.getElementById("logoimg");
+            preview.src = src;
+            preview.style.display = "block";
+        }
+    }
+
+    function AddScreenshotPreview(event) {
+        if (event.target.files.length > 0) {
+
+            Array.prototype.forEach.call(event.target.files, file => {
+                var srcButton = document.createElement("input");
+                srcButton.style.height = "10vh";
+                srcButton.type = "image";
+                srcButton.src = URL.createObjectURL(file);
+                srcButton.className = "m-2";
+
+                srcButton.addEventListener("click", function () {
+                    this.parentNode.removeChild(this);
+                    
+                });
+
+                screenshots.push(file);
+                document.getElementsByClassName('ScreenshotsScroll')[0].appendChild(srcButton);
+            });
+        }
+    }
+
     function AddGame()
     {
         
@@ -252,39 +283,26 @@
                     })
                 });
 
+                screenshots.forEach(function (elem) { // Добавление скриншотов
+                    let data = new FormData
+                    data.append("forGameId", addedGameId);
+                    data.append("infile", elem);
+
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("AddGameScreens", "Edit")',
+                        data: data,
+                        contentType: false,
+                        processData: false,
+                        success: function (data) {
+                        }
+                    })
+                });
+
                 alert("Игра успешно добавлена под id: " + gdata);
                 window.location.href = '@Url.Action("Index", "Home")';
             }
         })
-    }
-
-    function ShowLogoPreview(event) {
-        if(event.target.files.length > 0) {
-            var src = URL.createObjectURL(event.target.files[0]);
-            var preview = document.getElementById("logoimg");
-            preview.src = src;
-            preview.style.display = "block";
-        }
-    }
-
-    function AddScreenshotPreview(event) {
-        if (event.target.files.length > 0) {
-
-            Array.prototype.forEach.call(event.target.files, file => {
-                var srcButton = document.createElement("input");
-                srcButton.style.height = "10vh";
-                srcButton.type = "image";
-                srcButton.src = URL.createObjectURL(file);
-                srcButton.className = "m-2";
-
-                srcButton.addEventListener("click", function () {
-                    this.parentNode.removeChild(this);
-                    
-                });
-
-                document.getElementsByClassName('ScreenshotsScroll')[0].appendChild(srcButton);
-            });
-        }
     }
 
 </script>

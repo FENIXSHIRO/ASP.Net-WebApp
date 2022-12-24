@@ -14,6 +14,16 @@ namespace ComputerGames.Controllers
             return View();
         }
 
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        public IActionResult AddModer()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Login(string username, string password, string returnAction, string returnController)
         {
@@ -51,6 +61,42 @@ namespace ComputerGames.Controllers
                     return View();
                 }
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(string username, string password, string email)
+        {
+            using (var db = new GamesWebAppDbContext())
+            {
+                User user = new User();
+                user.UserName = username;
+                user.UserPassword = PasswordHasher.HashPassword(password);
+                user.UserEmail = email;
+                user.UserGroup = 3;
+                db.Users.Add(user);
+
+                db.SaveChanges();
+            }
+            
+            return RedirectToAction("Login", "Account");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddModer(string username, string password, string email)
+        {
+            using (var db = new GamesWebAppDbContext())
+            {
+                User user = new User();
+                user.UserName = username;
+                user.UserPassword = PasswordHasher.HashPassword(password);
+                user.UserEmail = email;
+                user.UserGroup = 2;
+                db.Users.Add(user);
+
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]

@@ -28,8 +28,6 @@
             return;
         }
 
-
-
         let data = new FormData;
         data.append("gameId", @ViewBag.game.GameId);
         data.append("username", '@ViewContext.HttpContext.User.Identity.Name');
@@ -48,6 +46,21 @@
         })
     }
 
+    function deleteComment(id) {
+        let data = new FormData;
+        data.append("id", id);
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("DeleteComment", "Edit")',
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function () {
+                window.location.reload();
+            }
+        })
+    }
 </script>
 
 <style>
@@ -87,16 +100,25 @@
     <div class="container">
         <h2>Скриншоты</h2>
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner" style="height:50vh; width:auto">
-                <div class="carousel-item active">
-                    <img src='@Url.Action("show", "image", new { id = ViewBag.game.GameId })' class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src='@Url.Action("show", "image", new { id = ViewBag.game.GameId })' class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src='@Url.Action("show", "image", new { id = ViewBag.game.GameId })' class="d-block w-100" alt="...">
-                </div>
+            <div class="carousel-inner" style="width:auto">
+                @if (ViewBag.screenshotscount != null)
+                {
+                   @for (int i = 0; i < ViewBag.screenshotscount; i++)
+                    {
+                        @if (i == 0)
+                        {
+                            <div class="carousel-item active">
+                                <img src='@Url.Action("GetScreenshotByNumber", "image", new { gameId = ViewBag.game.GameId, numberOfScreenshot = i })' class="d-block" alt="..." style="margin:auto; width:50%;">
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="carousel-item">
+                                <img src='@Url.Action("GetScreenshotByNumber", "image", new { gameId = ViewBag.game.GameId, numberOfScreenshot = i })' class="d-block" alt="..." style="margin:auto; width:50%;">
+                            </div>
+                        }
+                    } 
+                }
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -147,6 +169,10 @@
             <div class="ms-3 ps-1" style="width:100%; border-left: 1px solid #999">
                 <div class="ps-3 py-1" style="background: #222">
                     <p class="my-1" >@comment.username</p>
+                    @if (ViewContext.HttpContext.User.Identity.IsAuthenticated && (ViewContext.HttpContext.User.IsInRole("Administrator") || ViewContext.HttpContext.User.IsInRole("Moderator")))
+                    {
+                        <a style="color: white" onclick="deleteComment('@comment.commentid')" href="#" , new { id=comment.commentid })">[Удалить отзыв]</a>
+                    }
                     <h2>@comment.rating / 10</h2>
                 </div>
                 <div class="my-1 ms-1" style="width:80%; height:1px; border-bottom: 1px solid #999"></div>
