@@ -3,7 +3,7 @@
 
 Cайт-агрегатор для сбора оценок и отзывов видеоигр
 
-![Preview](preview/1.jpg)
-![Preview2](preview/2.jpg)
-![Preview3](preview/3.jpg)
+![Preview](preview/1.png)
+![Preview2](preview/2.png)
+![Preview3](preview/3.png)
 
